@@ -8,6 +8,9 @@ Vagrant.configure("2") do |config|
   #Check to see if the box is outdated. If so, update
   config.vm.box_check_update = true
 
+  # Configure private network
+  config.vm.network :private_network, ip: '192.168.10.82'
+
   # Box configuration changes
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
@@ -20,8 +23,6 @@ Vagrant.configure("2") do |config|
     vb.memory = "1024"
   end
 
-  config.vm.provision "shell" do |s|
-    s.path "usetup.sh"
-  end
+  config.vm.provision :shell, :path => "usetup.sh"
 
 end
