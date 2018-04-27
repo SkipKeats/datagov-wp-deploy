@@ -8,7 +8,12 @@ Vagrant.configure("2") do |config|
   #Check to see if the box is outdated. If so, update
   config.vm.box_check_update = true
 
-  # Configure private network
+  # Configure private network using hostmanager plugin
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+  config.vm.hostname = 'wp.local'
   config.vm.network :private_network, ip: '192.168.10.82'
 
   # Box configuration changes
@@ -20,9 +25,14 @@ Vagrant.configure("2") do |config|
     vb.name = "UT14.04-64bit: WP Web"
 
     # Customize the amount of memory on the VM:
-    vb.memory = "1024"
+    vb.memory = "4096"
   end
 
-  config.vm.provision :shell, :path => "usetup.sh"
+  #config.vm.provision :shell, :path => "usetup.sh"
+
+  # Provision vm through ansible
+  configure.vm.provision "ansible" do |ansible|
+
+  end
 
 end
