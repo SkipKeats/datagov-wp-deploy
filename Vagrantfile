@@ -32,7 +32,8 @@ Vagrant.configure("2") do |config|
 
   # Provision vm through ansible
   configure.vm.provision "ansible" do |ansible|
-
+    ansible.playbook = "ansible/datagov-web.yml"
+    ansible.limit = "wordpress-web"
   end
 
 end
