@@ -31,9 +31,13 @@ Vagrant.configure("2") do |config|
   #config.vm.provision :shell, :path => "usetup.sh"
 
   # Provision vm through ansible
-  configure.vm.provision "ansible" do |ansible|
+  config.vm.provision "ansible" do |ansible|
     ansible.playbook = "ansible/datagov-web.yml"
     ansible.limit = "wordpress-web"
+    ansible.tags = "provision"
+    ansible.become = true
+    ansible.extra_vars = { ansible_ssh_user: "vagrant" }
+    ansible.inventory_path = "ansible/inventories/local/hosts"
   end
 
 end
